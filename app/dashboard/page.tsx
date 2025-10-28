@@ -3,6 +3,7 @@ import { StatCard } from "@/components/stat-card"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { TrendingUp, DollarSign, Target, Zap, ArrowUpRight, ArrowDownRight } from "lucide-react"
+import Link from "next/link"
 
 export default function DashboardPage() {
   return (
@@ -86,22 +87,30 @@ export default function DashboardPage() {
           <Card className="p-6">
             <h2 className="text-2xl font-bold mb-6">Quick Actions</h2>
             <div className="space-y-3">
-              <Button className="w-full justify-start" size="lg">
-                <TrendingUp className="w-4 h-4 mr-2" />
-                Build Lineup
-              </Button>
-              <Button className="w-full justify-start bg-transparent" variant="outline" size="lg">
-                <Zap className="w-4 h-4 mr-2" />
-                View Live Contests
-              </Button>
-              <Button className="w-full justify-start bg-transparent" variant="outline" size="lg">
-                <Target className="w-4 h-4 mr-2" />
-                Player Research
-              </Button>
-              <Button className="w-full justify-start bg-transparent" variant="outline" size="lg">
-                <DollarSign className="w-4 h-4 mr-2" />
-                Bankroll Report
-              </Button>
+              <Link href="/optimizer">
+                <Button className="w-full justify-start" size="lg">
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  Build Lineup
+                </Button>
+              </Link>
+              <Link href="/live">
+                <Button className="w-full justify-start bg-transparent" variant="outline" size="lg">
+                  <Zap className="w-4 h-4 mr-2" />
+                  View Live Contests
+                </Button>
+              </Link>
+              <Link href="/players">
+                <Button className="w-full justify-start bg-transparent" variant="outline" size="lg">
+                  <Target className="w-4 h-4 mr-2" />
+                  Player Research
+                </Button>
+              </Link>
+              <Link href="/bankroll">
+                <Button className="w-full justify-start bg-transparent" variant="outline" size="lg">
+                  <DollarSign className="w-4 h-4 mr-2" />
+                  Bankroll Report
+                </Button>
+              </Link>
             </div>
           </Card>
         </div>

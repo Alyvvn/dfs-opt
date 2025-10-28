@@ -1,0 +1,289 @@
+================================================================================
+                        CSV REQUIREMENTS SUMMARY
+================================================================================
+
+REQUIRED COLUMNS (must have all 4):
+  1. Name              → Player name
+  2. Position          → Position code (C, 1B, 2B, 3B, SS, OF, P, etc.)
+  3. Salary            → Numeric salary (no $ or commas)
+  4. Predicted_DK_Points → Numeric projection (no % symbols)
+
+OPTIONAL COLUMNS:
+  • Team               → Team abbreviation
+  • Any custom columns → Preserved but not used
+
+================================================================================
+
+EXACT HEADER FORMAT:
+  
+  Name,Position,Team,Salary,Predicted_DK_Points
+
+NO SPACES AROUND COMMAS!
+NO EXTRA COLUMNS!
+NO QUOTED VALUES!
+
+================================================================================
+
+DATA FORMAT EXAMPLES:
+
+✅ CORRECT:
+  Name,Position,Team,Salary,Predicted_DK_Points
+  Aaron Judge,OF,NYY,12000,55.2
+  Juan Soto,OF,NYM,11500,52.1
+
+❌ WRONG - Column names don't match:
+  Player,Pos,Team,Salary,Points
+  
+❌ WRONG - Extra spaces:
+  Name , Position , Team , Salary , Predicted_DK_Points
+  
+❌ WRONG - Salary has $ and commas:
+  Name,Position,Team,$12,000,55.2
+  
+❌ WRONG - Points has %:
+  Name,Position,Team,12000,55.2%
+
+================================================================================
+
+ACCEPTED COLUMN NAME VARIATIONS:
+
+Backend automatically maps these to standard names:
+
+Salary variations:
+  • Salary → ✅
+  • salary → ✅
+  • SALARY → ✅
+
+Points variations:
+  • Predicted_DK_Points → ✅
+  • predicted_dk_points → ✅
+  • DK_Points → ✅
+  • Points → ✅
+  • FPPG → ✅
+
+Position variations:
+  • Position → ✅
+  • position → ✅
+  • Pos → ❌ Won't work!
+
+Name variations:
+  • Name → ✅
+  • name → ✅
+  • NAME → ✅
+  • Player → ❌ Won't work!
+
+Team variations:
+  • Team → ✅
+  • team → ✅
+  • TEAM → ✅
+
+================================================================================
+
+POSITION CODES BY SPORT:
+
+MLB Baseball:
+  C    = Catcher
+  1B   = First Base
+  2B   = Second Base
+  3B   = Third Base
+  SS   = Shortstop
+  OF   = Outfield
+  P    = Pitcher
+  DH   = Designated Hitter
+  UTIL = Utility
+
+NBA Basketball:
+  PG   = Point Guard
+  SG   = Shooting Guard
+  SF   = Small Forward
+  PF   = Power Forward
+  C    = Center
+  UTIL = Utility
+
+NFL Football:
+  QB   = Quarterback
+  RB   = Running Back
+  WR   = Wide Receiver
+  TE   = Tight End
+  K    = Kicker
+  DEF  = Defense
+  UTIL = Utility
+
+================================================================================
+
+SALARY & POINTS FORMAT:
+
+Salary:
+  ✅ 12000 (numeric, no formatting)
+  ✅ 5500  (can be any number)
+  ❌ $12000 (no dollar sign)
+  ❌ 12,000 (no commas)
+  ❌ 12K (no letters)
+
+Points/Projection:
+  ✅ 55.2 (decimal allowed)
+  ✅ 52   (integer ok)
+  ✅ 0    (zero ok)
+  ❌ 55.2% (no percent sign)
+  ❌ 55 1/2 (no fractions)
+  ❌ 55.2pts (no text)
+
+================================================================================
+
+FILE REQUIREMENTS:
+
+Format:
+  • MUST be .csv file (not .xlsx, .xls, .txt, .tsv)
+  • MUST be UTF-8 encoding (not ANSI, not UTF-16)
+  • MUST use comma delimiter (not semicolon or tab)
+
+Content:
+  • Row 1: Column headers
+  • Rows 2+: Player data
+  • NO blank rows at end
+  • NO extra blank columns
+  • AT LEAST 8-10 players needed
+
+================================================================================
+
+HOW TO SAVE FROM EXCEL CORRECTLY:
+
+1. File → Save As
+2. Format: "CSV UTF-8 (.csv)" ← IMPORTANT
+   (NOT "CSV (Comma delimited)" which adds extra quotes)
+3. Click Save
+4. If asked about losing formatting, click "Continue"
+
+================================================================================
+
+HOW TO SAVE FROM GOOGLE SHEETS:
+
+1. File → Download
+2. Select "Comma Separated Values (.csv)"
+3. Opens CSV file
+4. This format is correct by default
+
+================================================================================
+
+VERIFY YOUR CSV:
+
+Open in text editor (NOT Excel) and check:
+
+Line 1:
+  Should start exactly: Name,Position,Team,Salary,Predicted_DK_Points
+  No spaces after commas
+  No quote characters
+
+Other lines:
+  Should have same number of commas as header
+  No quotes around values
+  No special characters
+
+Example when opened in text editor:
+  Name,Position,Team,Salary,Predicted_DK_Points
+  Aaron Judge,OF,NYY,12000,55.2
+  Juan Soto,OF,NYM,11500,52.1
+  Mike Trout,OF,LAA,10500,50.5
+
+================================================================================
+
+MINIMUM REQUIREMENTS:
+
+✓ Exactly 4 required columns
+✓ At least 8 rows of data (8+ players)
+✓ All numeric columns actually numeric
+✓ All position codes valid for sport
+✓ No special formatting or quotes
+✓ UTF-8 encoding
+✓ .csv file extension
+
+================================================================================
+
+TESTING YOUR CSV:
+
+1. Use provided sample_players.csv as reference
+2. Compare your CSV to sample exactly
+3. Open both in text editor side-by-side
+4. Look for differences in:
+   - Column names
+   - Spacing
+   - Data format
+   - Quote marks
+
+If sample works but yours doesn't:
+  • Your CSV format is wrong
+  • Follow sample format exactly
+
+If sample also fails:
+  • Backend issue
+  • Check: curl http://localhost:8000/health
+
+================================================================================
+
+POSITION CODE VALIDATION:
+
+Your CSV positions MUST match sport you selected:
+
+MLB (Baseball):
+  ✅ C, 1B, 2B, 3B, SS, OF, P, DH, UTIL
+  ❌ PG, SG, SF (those are NBA)
+  ❌ QB, RB, WR (those are NFL)
+
+NBA (Basketball):
+  ✅ PG, SG, SF, PF, C, UTIL
+  ❌ C, 1B, 2B (those are MLB)
+
+NFL (Football):
+  ✅ QB, RB, WR, TE, K, DEF, UTIL
+  ❌ C, OF, P (those are MLB)
+
+================================================================================
+
+COMMON MISTAKES:
+
+❌ Column name different:
+   Using: Player (should be: Name)
+   Using: Proj (should be: Predicted_DK_Points)
+   Using: Pos (should be: Position)
+
+❌ Salary formatting:
+   Using: $12000 (should be: 12000)
+   Using: 12,000 (should be: 12000)
+   Using: 12K (should be: 12000)
+
+❌ Points formatting:
+   Using: 55.2% (should be: 55.2)
+   Using: 55pts (should be: 55)
+
+❌ Position codes:
+   Using: Outfield (should be: OF)
+   Using: Pitcher (should be: P)
+   Using: catcher (should be: C)
+
+❌ File format:
+   Saving as: .xlsx (should be: .csv)
+   Saving as: CSV (Comma delimited) (should be: CSV UTF-8)
+
+================================================================================
+
+QUICK CHECKLIST:
+
+Before uploading CSV to optimizer:
+
+- [ ] File extension is .csv
+- [ ] Encoding is UTF-8
+- [ ] First line is: Name,Position,Team,Salary,Predicted_DK_Points
+- [ ] No spaces around commas in header
+- [ ] No quote marks anywhere
+- [ ] Salary column has only numbers (no $ or commas)
+- [ ] Points column has only numbers (no % or text)
+- [ ] Position codes match your selected sport
+- [ ] At least 8 rows of player data
+- [ ] Opened in text editor (NOT Excel) - looks correct
+
+If all checkmarks, your CSV is ready!
+
+================================================================================
+
+Updated: October 26, 2025
+Status: Ready for Production ✅

@@ -2,98 +2,87 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { BarChart3, TrendingUp, Users, Zap, DollarSign, Menu } from "lucide-react"
+import { Zap, Menu, X } from "lucide-react"
 import { useState } from "react"
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+    <nav className="border-b border-border/50 bg-background/80 backdrop-blur-xl sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/20 transition-all">
               <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="font-bold text-xl">DFS Optimizer</span>
+            <span className="font-bold text-lg hidden sm:inline">DFS</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link
-              href="/dashboard"
-              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <BarChart3 className="w-4 h-4" />
-              Dashboard
-            </Link>
-            <Link
-              href="/optimizer"
-              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <TrendingUp className="w-4 h-4" />
+          <div className="hidden md:flex items-center gap-1">
+            <Link href="/optimizer" className="px-3 py-2 text-sm font-medium hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
               Optimizer
             </Link>
-            <Link
-              href="/players"
-              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <Users className="w-4 h-4" />
+            <Link href="/players" className="px-3 py-2 text-sm font-medium hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
               Players
             </Link>
-            <Link
-              href="/live"
-              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <Zap className="w-4 h-4" />
+            <Link href="/live" className="px-3 py-2 text-sm font-medium hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
               Live
             </Link>
-            <Link
-              href="/bankroll"
-              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <DollarSign className="w-4 h-4" />
+            <Link href="/dashboard" className="px-3 py-2 text-sm font-medium hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
+              Dashboard
+            </Link>
+            <Link href="/bankroll" className="px-3 py-2 text-sm font-medium hover:text-primary transition-colors rounded-lg hover:bg-primary/5">
               Bankroll
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" size="sm">
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="text-sm font-medium">
               Sign In
             </Button>
-            <Button size="sm">Start Free Trial</Button>
+            <Button size="sm" className="text-sm font-medium">
+              Start Free
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <Button variant="ghost" size="sm" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            <Menu className="w-5 h-5" />
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="md:hidden p-2" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </Button>
         </div>
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-3 border-t border-border">
-            <Link href="/dashboard" className="block text-sm font-medium hover:text-primary transition-colors">
-              Dashboard
-            </Link>
-            <Link href="/optimizer" className="block text-sm font-medium hover:text-primary transition-colors">
+          <div className="md:hidden py-4 space-y-2 border-t border-border/30 animate-in fade-in slide-in-from-top-2 duration-200">
+            <Link href="/optimizer" className="block px-4 py-2 text-sm font-medium rounded-lg hover:bg-primary/5 hover:text-primary transition-colors">
               Optimizer
             </Link>
-            <Link href="/players" className="block text-sm font-medium hover:text-primary transition-colors">
+            <Link href="/players" className="block px-4 py-2 text-sm font-medium rounded-lg hover:bg-primary/5 hover:text-primary transition-colors">
               Players
             </Link>
-            <Link href="/live" className="block text-sm font-medium hover:text-primary transition-colors">
+            <Link href="/live" className="block px-4 py-2 text-sm font-medium rounded-lg hover:bg-primary/5 hover:text-primary transition-colors">
               Live
             </Link>
-            <Link href="/bankroll" className="block text-sm font-medium hover:text-primary transition-colors">
+            <Link href="/dashboard" className="block px-4 py-2 text-sm font-medium rounded-lg hover:bg-primary/5 hover:text-primary transition-colors">
+              Dashboard
+            </Link>
+            <Link href="/bankroll" className="block px-4 py-2 text-sm font-medium rounded-lg hover:bg-primary/5 hover:text-primary transition-colors">
               Bankroll
             </Link>
-            <div className="pt-3 space-y-2">
-              <Button variant="ghost" size="sm" className="w-full">
+            <div className="pt-2 space-y-2 border-t border-border/30 mt-4">
+              <Button variant="ghost" size="sm" className="w-full text-sm">
                 Sign In
               </Button>
-              <Button size="sm" className="w-full">
+              <Button size="sm" className="w-full text-sm">
                 Start Free Trial
               </Button>
             </div>
